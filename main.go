@@ -1,8 +1,8 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 )
 
@@ -25,14 +25,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("    [%v] : [%v]\n", k, v)
 	}
 	fmt.Printf("  body : \n")
-	for {
-		buffer, err := ioutil.ReadAll(r.Body)
-		if err != nil {
-			fmt.Printf("error on reading body[%v]", err.Error())
-			break
-		}
-		fmt.Printf("%s\n", buffer)
-	}
+	bufbody := new(bytes.Buffer)
+	bufbody.ReadFrom(r.Body)
+	body := bufbody.String()
+	fmt.Printf("%s\n", body)
 }
 
 func main() {
