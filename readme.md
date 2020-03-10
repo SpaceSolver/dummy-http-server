@@ -6,3 +6,5 @@
    * 1) `res/xml/network_security_config.xml` を作る
    * 2) `AndroidManifest.xml`に登録する
 * permission.INTERNET も忘れずに
+
+* 起動は、管理者権限で実行すること
