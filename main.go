@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
 )
 
@@ -22,6 +23,15 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("  header : \n")
 	for k, v := range r.Header {
 		fmt.Printf("    [%v] : [%v]\n", k, v)
+	}
+	fmt.Printf("  body : \n")
+	for {
+		buffer, err := ioutil.ReadAll(r.Body)
+		if err != nil {
+			fmt.Printf("error on reading body[%v]", err.Error())
+			break
+		}
+		fmt.Printf("%s\n", buffer)
 	}
 }
 
